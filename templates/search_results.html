@@ -1,0 +1,143 @@
+{% extends "base.html" %}
+
+{% block search %}
+
+<style>
+    /* Add responsive styling for the card container */
+    .project-cards {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 70px;
+      background-color: #212121; /* Dark background */
+    }
+    
+    /* Style the cards */
+    .card {
+      background-color: #333; /* Dark gray background */
+      border-radius: 10px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      color: #fff;
+      margin-left: 10px; /* Reduced margin */
+      margin-right: 10px;
+      margin-bottom: 10px;
+      margin-top: 10px;
+      padding: 5px; /* Reduced padding */
+      text-align: center;
+      text-decoration: none;
+      height: 225px; /* Increased height */
+      transition: transform 0.3s ease-in-out; /* Add transition effect */
+    }
+    
+    .card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
+    
+    .card img {
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+      object-fit: cover;
+      width: 100%;
+      margin-bottom: 5px; /* Reduced margin bottom */
+    }
+    
+    .card-body{
+      padding: 5px; /* Reduced padding */
+    }
+    
+    .card-body h4 {
+      font-weight: bold;
+      font-size: 14px; /* Reduced font size */
+      margin-bottom: 5px; /* Reduced margin bottom */
+      margin-top: -10px; /* Move h4 10px up */
+    }
+    
+    /* Make the cards responsive */
+    /* Mobile view (max-width: 480px) */
+    @media (max-width: 480px) {
+      .card {
+        width: 190px;
+      }
+    }
+    
+    /* Tablet view (min-width: 481px and max-width: 768px) */
+    @media (min-width: 481px) and (max-width: 768px) {
+      .card {
+        width: 190px;
+      }
+    }
+    
+    /* Desktop view (min-width: 769px and max-width: 1024px) */
+    @media (min-width: 769px) and (max-width: 1024px) {
+      .card {
+        width: 190px;
+      }
+    }
+    
+    /* Large desktop view (min-width: 1025px) */
+    @media (min-width: 1025px) {
+      .card {
+        width: 190px;
+      }
+    }
+    </style>
+
+<!-- <form method="get" action="{% url 'search_projects' %}">
+    <input type="text" name="q" placeholder="Search projects..." required>
+    <button type="submit">Search</button>
+</form>
+
+<div class="project-cards">
+    {% for project in projects %}
+    <a href="{{project.link}}" class="card" style="text-decoration: none; color: #fff;">
+        <img src="{{ project.img }}" alt="{{ project.name }}">
+            <div class="card-body">
+                <h4>{{ project.name }}</h4>
+            </div>
+    </a>
+    {% empty %}
+    <p>No projects found.</p>
+    {% endfor %}
+</div> -->
+
+<div class="project-cards">
+  {% for project in projects %}
+
+  <span onclick="submitForm('{{ project.id }}')" class="card">
+  <!-- <a href="{{project.link}}" class="card" style="text-decoration: none; color: #fff;"> -->
+      {% if project.img %}
+      <img src="{{ project.img }}" alt="{{ project.name }}">
+      {% endif %}
+      <div class="card-body">
+        <h4>{{ project.name }}</h4>
+      </div>
+
+      <form id="hiddenForm" method="post" action="{% url 'appp' %}">
+        {% csrf_token %}
+        <input type="text" name="project_id" id="projectId" hidden value="{{ project.id }}">
+        <input type="submit" id="hiddenSubmit"  hidden>
+    </form>
+    </span>
+  {% empty %}
+  <h1 style="color: #fff; padding: 100px;">No results found.</h1>
+  {% endfor %}
+</div>
+
+<script>
+  function submitForm(projectId) {
+  console.log("Setting project ID:", projectId); // Debugging line
+  var projectIdInput = document.getElementById('projectId');
+  if (projectIdInput) {
+      projectIdInput.value = projectId;
+      console.log("Form ID set to:", projectIdInput.value); // Debugging line
+      document.getElementById('hiddenForm').submit();
+      // this.form.submit();
+  } else {
+      console.error("Hidden input field not found."); // Debugging line
+  }
+}
+</script>
+
+
+{% endblock search %}

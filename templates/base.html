@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<!-- Coding By CodingNepal - codingnepalweb.com -->
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ai Controls</title>
+  <link rel="stylesheet" href="../static/css/style.css" />
+  <link rel="stylesheet" href="../static/css/style2.css">
+  <!-- Unicons CSS -->
+  <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css" />
+  <script src="../static/js/script.js" defer></script>
+</head>
+
+<body style="  background: #242424;">
+  <nav class="nav" style="background-color:#28292A;">
+    <i class="uil uil-bars navOpenBtn"></i>
+    <a href="/" class="logo">Ai Controls</a>
+
+    <ul class="nav-links" style="background-color:#282828;">
+      <i class="uil uil-times navCloseBtn"></i>
+      <li><a href="#"><i class="uil uil-question-circle"
+            style="font-size: 20px; color: #FFF; padding-right: 8px;"></i>Help</a></li>
+      <li><a href="#"><i class="uil uil-info-circle"
+            style="font-size: 20px; color: #FFF; padding-right: 8px;"></i>About</a></li>
+      <li><a href="#"><i class="uil uil-envelope"
+            style="font-size: 20px; color: #FFF; padding-right: 8px;"></i>Feedback</a></li>
+    </ul>
+
+    <i class="uil uil-search search-icon" id="searchIcon"></i>
+    <div class="search-box">
+      
+      <form method="get" action="{% url 'search_projects' %}" id="form">
+        <!-- <input type="text" class="search-input" name="q" placeholder="Search here..." required> -->
+        <!-- <button type="submit" style="width: 0.001px; height: 0.001px;">Search</button> -->
+        <input type="text" id="search-bar" class="search-input" name="q" placeholder="Search here..." oninput="fetchSuggestions(this.value)" style="height: 35px;">
+        <i class="uil uil-search search-icon" style="  left: 10px;  top: 40%;"></i>
+    </form>
+    <div id="suggestions" onclick="sug_sub()"></div>
+    </div>
+  </nav>
+
+  {% block card %}{% endblock card %}
+  {% block search %}{% endblock search %}
+  {% block cam %}{% endblock cam %}
+
+</body>
+</html>

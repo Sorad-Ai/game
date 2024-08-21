@@ -1,0 +1,20 @@
+#suggestions {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    border: 1px solid #ccc;
+    border-top: none;
+    z-index: 99;
+    background-color: white;
+}
+.suggestion-item {
+    padding: 10px;
+    cursor: pointer;
+}
+
+.suggestion-item:hover,
+.suggestion-item.active {
+    background-color: blue;
+    color: white;
+}

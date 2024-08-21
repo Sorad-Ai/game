@@ -1,0 +1,47 @@
+body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+#container {
+    display: flex;
+    flex-direction: column;
+    width: 900px;
+    height: calc(700px - 75px); /* Adjust height to account for the top margin */
+    margin-top: 75px; /* Adds margin at the top */
+    border: none;
+}
+
+#iframe {
+    flex: 1; /* Takes up remaining space */
+    border: none;
+}
+
+#controls {
+    height: 30px;
+    background-color: #28292A;
+    display: flex;
+    justify-content: right;
+    padding-right: 10px;
+    align-items: center;
+    border-top: 1px solid black;
+}
+
+#fullscreenToggle {
+    width: 20px;
+    height: 20px;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+#fullscreenToggle svg {
+    fill: black;
+    width: 20px;
+    height: 20px;
+}

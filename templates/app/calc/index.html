@@ -1,0 +1,29 @@
+{% extends "../../base.html" %}
+
+{% block cam %}
+<link rel="stylesheet" href="../../../static/css/toggle.css">
+<div class="camera" style="background-color: black; width: 100%; margin-top: 70px;">
+   
+    <div class="container" style="background-color: black;">
+        <!-- Camera toggle checkbox -->
+        <input type="checkbox" id="toggleCheckbox" checked>
+        <label for="toggleCheckbox" class="button"></label>
+
+        <h1>Hand Tracking</h1>
+
+        <!-- Accuracy toggle checkbox -->
+        <label>
+            <input type="checkbox" id="accuracyCheckbox">
+            Show Accuracy
+        </label>
+        <br>
+    </div>
+
+    <div id="camera-output"> 
+        <img id="video-feed" src="" width="640" height="480" style="display: none;">
+        <textarea id="output-box" rows="10" cols="50" style="background-color: black; color: white"></textarea>
+    </div>
+
+</div>
+<script src="../../../static/js/cam_text.js"></script>
+{% endblock cam %}

@@ -1,0 +1,133 @@
+{% extends "base.html" %}
+
+{% block card %}
+
+<style>
+  /* Add responsive styling for the card container */
+  .card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 70px;
+    background-color: #212121; /* Dark background */
+    object-fit: cover; /* this will make sure the image covers the container */
+    object-position: center; /* center the image */
+  }
+  
+  /* Style the cards */
+  .card {
+    background-color: #333; /* Dark gray background */
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    color: #fff;
+    margin-left: 10px; /* Reduced margin */
+    margin-right: 10px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    padding: 5px; /* Reduced padding */
+    text-align: center;
+    text-decoration: none;
+    height: 225px; /* Increased height */
+    transition: transform 0.3s ease-in-out; /* Add transition effect */
+  }
+  
+  .card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  }
+  
+  .card img {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    /* height: 210px; Reduced image height */
+    object-fit: cover;
+    width: 100%;
+    margin-bottom: 5px; /* Reduced margin bottom */
+    overflow: hidden; /* hides any overflowed part of the image */
+  }
+  
+  .card-content {
+    padding: 5px; /* Reduced padding */
+  }
+  
+  .card-content h4 {
+    font-weight: bold;
+    font-size: 14px; /* Reduced font size */
+    margin-bottom: 5px; /* Reduced margin bottom */
+    margin-top: -10px; /* Move h4 10px up */
+  }
+  
+  /* Make the cards responsive */
+  /* Mobile view (max-width: 480px) */
+  @media (max-width: 480px) {
+    .card {
+      width: 190px;
+    }
+  }
+  
+  /* Tablet view (min-width: 481px and max-width: 768px) */
+  @media (min-width: 481px) and (max-width: 768px) {
+    .card {
+      width: 190px;
+    }
+  }
+  
+  /* Desktop view (min-width: 769px and max-width: 1024px) */
+  @media (min-width: 769px) and (max-width: 1024px) {
+    .card {
+      width: 190px;
+    }
+  }
+  
+  /* Large desktop view (min-width: 1025px) */
+  @media (min-width: 1025px) {
+    .card {
+      width: 190px;
+    }
+  }
+  </style>
+
+<div class="card-container">
+  {% for card in cards %}
+  <span onclick="submitForm('{{ card.id }}')" class="card">
+     <!-- <a class="card" style="text-decoration: none; color: #fff; onclick="submitForm({{card.id}})""> -->
+    <img src="{{ card.img }}" alt="{{ card.name }}">
+    <div class="card-content">
+      <h4>{{ card.name }}</h4>
+    </div>
+
+    <form id="hiddenForm" method="post" action="{% url 'appp' %}">
+      {% csrf_token %}
+      <input type="text" name="project_id" id="projectId" hidden value="{{ card.id }}">
+      <input type="submit" id="hiddenSubmit"  hidden>
+  </form>
+  </span>
+ 
+  
+  
+  <!-- </a> -->
+  {% endfor %}
+
+  <script>
+    function submitForm(projectId) {
+    console.log("Setting project ID:", projectId); // Debugging line
+    var projectIdInput = document.getElementById('projectId');
+    if (projectIdInput) {
+        projectIdInput.value = projectId;
+        console.log("Form ID set to:", projectIdInput.value); // Debugging line
+        document.getElementById('hiddenForm').submit();
+        // this.form.submit();
+    } else {
+        console.error("Hidden input field not found."); // Debugging line
+    }
+}
+</script>
+</div>
+
+<!-- <script>
+  function sendData(variableValue) {
+      window.location.href = "+?id=" + variableValue;
+  }
+</script> -->
+
+{% endblock card %}

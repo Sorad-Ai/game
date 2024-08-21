@@ -1,0 +1,54 @@
+{% extends "../../base.html" %}
+
+{% block cam %}
+<div class="camera" style="background-color: orange; width: 100%; margin-top: 70px;">
+    <h1>Hand Gesture Control  <input type="checkbox" id="toggleCheckbox"></h1>
+    
+    <div id="camera-output">
+        <img id="video-feed" src="" width="640" height="480" style="display: none;">
+        <textarea id="output-box" rows="10" cols="50"></textarea>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            let toggleSwitch = document.getElementById('toggleCheckbox');
+            let cameraOutput = document.getElementById('video-feed');
+            let outputBox = document.getElementById('output-box');
+
+            function handleKeydown(event) {
+                outputBox.value += event.key;
+            }
+
+            // Function to start the camera feed
+            function startCamera() {
+                cameraOutput.src = "{% url 'video_feed' %}";
+                cameraOutput.style.display = 'block';
+                document.addEventListener('keydown', handleKeydown);
+            }
+
+            // Function to stop the camera feed
+            function stopCamera() {
+                cameraOutput.src = "";
+                cameraOutput.style.display = 'none';
+                document.removeEventListener('keydown', handleKeydown);
+                outputBox.value = ''; // Clear the text area when the camera is off
+            }
+
+            // Toggle camera on or off based on the checkbox state
+            function toggleCamera() {
+                if (toggleSwitch.checked) {
+                    startCamera();
+                } else {
+                    stopCamera();
+                }
+            }
+
+            // Check the state of the checkbox on page load
+            toggleCamera();
+
+            // Listen for changes to the checkbox state
+            toggleSwitch.addEventListener('change', toggleCamera);
+        });
+    </script>
+</div>
+{% endblock cam %}
